@@ -20,10 +20,20 @@ servers:
 security:
   - bearerAuth: []
 
-
-
-    
-
-
-
-
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    InternalErrorResponse:
+      description: Server temporarily having failure
+    UnauthorizedErrorResponse:
+      description: Invalid or missing access token found
+    NotFoundErrorResponse:
+      description: Could not find the specified item
+    BadRequestErrorResponse:
+      description: Invalid parameters found on request sent
+    AccessTokenResponse:
+      description: Response for Access Token requests
