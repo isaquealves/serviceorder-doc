@@ -37,3 +37,400 @@ components:
       description: Invalid parameters found on request sent
     AccessTokenResponse:
       description: Response for Access Token requests
+  schemas:
+    User:
+      required:
+        - username
+      properties:
+        username:
+          description: The user username. Minimum of 5 chars and max of 12 chars length
+          type: string
+          pattern: '/^[a-zA-Z\-\_\.]{5,12}$/g'
+    Client:
+      allOf:
+        - $ref: '#/components/schemas/NewClient'
+        - type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    NewClient:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/User'
+      required:
+        - email
+        - name
+        - doc
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+          pattern: /^/\(\d{2}/\).\d{4,5}.\d{4}$/
+        doc:
+          type: string
+          pattern: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
+        company_name:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        notes:
+          type: string
+        active:
+          type: boolean
+    Professional:
+      allOf:
+        - $ref: '#/components/schemas/NewProfessional'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewProfessional:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/User'
+      required:
+        - name
+          email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        specialty:
+          $ref: '#/components/schemas/Specialty'
+        active:
+          type: boolean
+    Specialty:
+      allOf:
+        - $ref: '#/components/schemas/NewSpecialty'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewSpecialty:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    Company:
+      allOf:
+        - $ref: '#/components/schemas/NewCompany'
+        - type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              format: uuid
+    NewCompany:
+      type: object
+      required:
+        - commercial_name
+          legal_name 
+          doc
+          address
+      properties:
+        commercial_name:
+          type: string
+        legal_name: 
+          type: string
+        doc:
+          type: string
+          pattern: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
+        address:
+          $ref: '#/components/schemas/Address'
+    Vendor:
+      allOf:
+        - $ref: '#/components/schemas/NewVendor'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewVendor:
+      type: object
+      required:
+        - legalName
+          doc
+          stateDoc
+      properties:
+        legalName:
+          type: string
+        ibgeCode:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        doc:
+          type: string
+        stateDoc:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+        represent:
+          type: string
+        representEmail:
+          type: string
+        representPhone:
+          type: string
+    Product:
+      allOf:
+        - $ref: '#/components/schemas/NewProduct'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewProduct:
+      type: object
+      required:
+        - code
+          barcode
+          vendor
+          productType
+      properties:
+        code:
+          type: string
+        barcode: 
+          type: string
+        vendor:
+          $ref: '#/components/schemas/Vendor'
+        productType:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        dependencies:
+          type: string
+        maxQtde:
+          type: integer
+        minQtde: 
+          type: integer
+        warranty:
+          type: string
+        warrantyDuration:
+          type: integer
+        unitPrice:
+          type: number
+        margin:
+          type: number
+        sellingPrice:
+          type: number
+        discounts:
+          type: number
+        note:
+          type: string
+    Address:
+      type: object
+      required:
+        - zip_code
+      properties:
+        street:
+          type: string
+        number: 
+          type: integer
+        complement:
+          type: string
+        zip_code:
+          type: string
+          pattern: /^\d{5}-?\d{3}$/
+    DeviceType:
+      allOf:
+        - $ref: '#/components/schemas/NewDeviceType'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewDeviceType:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    OccurrenceType:
+      allOf:
+        - $ref: '#/components/schemas/NewOccurrenceType'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewOccurrenceType:
+      type: object
+      required:
+        - code
+          name
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+    Occurrence:
+      allOf:
+        - $ref: '#/components/schemas/NewOccurrence'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewOccurrence:
+      type: object
+      required:
+        - client
+          deviceType
+          deviceSeries
+          occurrenceType
+      properties:
+        client:
+          $ref: '#/components/schemas/Client'
+        deviceType:
+          $ref: '#/components/schemas/DeviceType'
+        deviceBrand:
+          type: string
+        deviceAge:
+          type: string
+        deviceModel:
+          type: string
+        deviceSeries:
+          type: string
+        installedSoftwares:
+          type: string
+        licensedSoftwares:
+          type: string
+        accessories:
+          type: string
+        occurrenceType:
+          $ref: '#/components/schemas/OccurrenceType'
+        isRecurrent:
+          type: boolean
+        description:
+          type: string
+        professional:
+          $ref: '#/components/schemas/Professional'
+        notes:
+          type: string
+        photos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Photo'
+        diagnosis:
+          type: string
+    Photo:
+      allOf:
+        - $ref: '#/components/schemas/NewPhoto'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewPhoto:
+      type: object
+      required:
+        - title
+          src
+          occurrence
+      properties:
+        title:
+          type: string
+        src:
+          type: string
+        description:
+          type: string
+        occurrence:
+          $ref: '#/components/schemas/Occurrence'
+    Intervention:
+      allOf:
+        - $ref: '#/components/schemas/NewIntervention'
+    NewIntervention:
+      type: object
+      properties:
+        code:
+          type: string
+          format: /^[svc]-\d{1,4}-[A-Z]$/
+        interventionType:
+          type: string
+        description:
+          type: string
+    Estimate:
+      allOf:
+        - $ref: '#/components/schemas/NewEstimate'
+      required:
+        - id
+      properties:
+        id: 
+          type: string
+          format: uuid
+    NewEstimate:
+      type: object
+      properties:
+        occurrences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Occurrence'
+        interventions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Intervention'
+    ServiceOrder:
+      allOf:
+        - $ref: '#/components/schemas/NewServiceOrder'
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+    NewServiceOrder:
+      type: object
+      properties:
+        professional: 
+          $ref: '#/components/schemas/Professional' 
+        client:
+          $ref: '#/components/schemas/Client'
+        estimateRef:
+          $ref: '#/components/schemas/Estimate'
+        referenceDate:
+          type: string
+        signed:
+          type: boolean
+        drop:
+          type: boolean
+    AccessToken:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+    RefreshTokenRequestBody:
+      type: object
+      properties:
+        refresh:
+          type: string
