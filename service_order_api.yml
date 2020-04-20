@@ -434,3 +434,1472 @@ components:
       properties:
         refresh:
           type: string
+paths:
+  /:
+    description: The api root. It provides a view of all resources available in current version
+    get:
+      tags:
+        - root
+          pre-auth
+      responses:
+        '200':
+          description: OK
+  /auth:
+    description: The authentication endpoint.
+    post:
+      tags:
+        - auth
+          pre-auth
+      description: Verify user 
+      requestBody:
+        description: Get the authentication token
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Access Token returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      description: Used to refresh expired authentication token
+      requestBody:
+        description: The Refresh token
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequestBody'
+      responses:
+        '200':
+          description: Access token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        
+  /clients:
+    get:
+      tags:
+        - client
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+    post:
+      tags:
+        - client
+      description: Create a new business client
+      requestBody:
+        description: Client to add to business
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewClient'
+      responses:
+        '200':
+          description: 'Client Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+
+  /clients/{id}/:
+    get:
+      tags:
+        - client
+      description: Returns a client based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of client to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The client response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    patch:
+      tags:
+        - client
+      description: Update client based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of client to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - client
+      description:  Remove client by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of client to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Client Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /professionals:
+    get:
+      tags:
+        - professional
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Professional'
+    post:
+      tags:
+        - professional
+      description: Create a new business professional
+      requestBody:
+        description: Professional to add to business
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProfessional'
+      responses:
+        '200':
+          description: 'Professional Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professional'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /professionals/{id}:
+    get:
+      tags:
+        - professional
+      description: Returns a professional based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of professional to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The professional response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Professional'
+    patch:
+      tags:
+        - professional
+      description: Update professional based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of professional to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - professional
+      description:  Remove professional by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of professional to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Professional Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /specialties:
+    get:
+      tags:
+        - specialty
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Specialty'
+    post:
+      tags:
+        - specialty
+      description: Create a new professional specialty
+      requestBody:
+        description: Specialty to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSpecialty'
+      responses:
+        '200':
+          description: 'Specialty Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialty'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /specialties/{id}:
+    get:
+      tags:
+        - specialty    
+      description: Returns a specialty based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of specialty to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The specialty response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialty'
+    patch:
+      tags:
+        - specialty    
+      description: Update specialty based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of specialty to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - specialty    
+      description:  Remove specialty by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of specialty to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Specialty Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /companies:
+    get:
+      tags:
+        - company
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+    post:
+      tags:
+        - company
+      description: Create a new company
+      requestBody:
+        description: Company to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCompany'
+      responses:
+        '200':
+          description: 'Company Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /companies/{id}:
+    get:
+      tags:
+        - company
+      description: Returns a company based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of company to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The company response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+    patch:
+      tags:
+        - company
+      description: Update company based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of company to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - company
+      description:  Remove company by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of company to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Company Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /vendors:
+    get:
+      tags:
+        - vendor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vendor'
+    post:
+      tags:
+        - vendor
+      description: Create a new vendor
+      requestBody:
+        description: Vendor to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewVendor'
+      responses:
+        '200':
+          description: 'Vendor Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /vendors/{id}:
+    get:
+      tags:
+        - vendor
+      description: Returns a vendor based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of vendor to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The vendor response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vendor'
+    patch:
+      tags:
+        - vendor
+      description: Update vendor based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of vendor to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - vendor
+      description:  Remove vendor by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of specialty to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Vendor Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /vendors/{id}/products:
+    get:
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /vendors/{id}/products/{p_id}:
+    get:
+      tags:
+        - product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: p_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid            
+      description: Returns a specialty based on informed ID
+      responses:
+        '200':
+          description: 'The specialty response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Specialty'
+  /products:
+    get:
+      tags:
+        - product
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+        - product
+      description: Create a new product
+      requestBody:
+        description: Product to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewProduct'
+      responses:
+        '200':
+          description: 'Product Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /products/{id}:
+    get:
+      tags:
+        - product
+      description: Returns a product based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of product to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The product response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    patch:
+      tags:
+        - product
+      description: Update product based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of product to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - product
+      description:  Remove specialty by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of specialty to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Product Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /products/findByVendor:
+    get:
+      tags:
+        - product
+      parameters:
+        - name: vendor_id
+          in: query
+          description: The vendor id
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /device_types:
+    get:
+      tags:
+        - device type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DeviceType'
+    post:
+      tags:
+        - device type
+      description: Create a new device type
+      requestBody:
+        description: Device type to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewDeviceType'
+      responses:
+        '200':
+          description: 'Device Type Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /device_types/{id}:
+    get:
+      tags:
+        - device type
+      description: Returns a device type based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of device type to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The device type response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceType'
+    patch:
+      tags:
+        - device type
+      description: Update device type based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of device type to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - device type
+      description:  Remove device type by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of device type to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Device type Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /occurrence_types:
+    get:
+      tags:
+        - occurrence type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OccurrenceType'
+    post:
+      tags:
+        - occurrence type
+      description: Create a new occurrence type
+      requestBody:
+        description: occurrence type to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOccurrenceType'
+      responses:
+        '200':
+          description: 'Occurrence Type Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccurrenceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /occurrence_types/{id}:
+    get:
+      tags:
+        - occurrence type    
+      description: Returns a occurrence type based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of occurrence type to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The occurrence type response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OccurrenceType'
+    patch:
+      tags:
+        - occurrence type    
+      description: Update occurrence type based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of occurrence type to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - occurrence type    
+      description:  Remove occurrence type by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of device type to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Occurrence type Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /occurrence:
+    get:
+      tags:
+        - occurrence
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Occurrence'
+    post:
+      tags:
+        - occurrence
+      description: Create a new occurrence type
+      requestBody:
+        description: occurrence type to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOccurrence'
+      responses:
+        '200':
+          description: 'Occurrence Type Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /occurrence/{id}:
+    get:
+      tags:
+        - occurrence
+      description: Returns a occurrence based on informed ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of occurrence to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The occurrence response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Occurrence'
+    patch:
+      tags:
+        - occurrence
+      description: Update occurrence based on given ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of occurrence to patch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - occurrence
+      description:  Remove occurrence by given ID attribute
+      parameters:
+        - name: id
+          in: path
+          description: ID of device to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Occurrence Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /occurrences/{professional}:
+    get:
+      tags:
+        - occurrence
+      parameters:
+        - name: professional
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid    
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Occurrence'
+  /occurrences/{client}:
+    get:
+      tags:
+        - occurrence
+      parameters:
+        - name: client
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid    
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Occurrence'
+  /occurrences/{device_type}:
+    get:
+      tags:
+        - occurrence
+      parameters:
+        - name: device_type
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Occurrence'
+  /occurrence/{occurrence_id}/photos:
+    get:
+      tags:
+        - photo
+      parameters:
+        - name: occurrence_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Photo'
+    post:
+      tags:
+        - photo
+      parameters:
+        - name: occurrence_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      description: Create a new photo
+      requestBody:
+        description: Photo to add to occurrence
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPhoto'
+      responses:
+        '200':
+          description: Photo Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photo'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /occurrence/{occurrence_id}/photos/{photo_id}/:
+    get:
+      tags:
+        - photo
+      description: Returns a photo based on informed ID
+      parameters:
+        - name: occurrence_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: photo_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: 'The photo response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Photo'
+    patch:
+      tags:
+        - photo
+      description: Update photo based on given ID
+      parameters:
+        - name: occurrence_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: photo_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: The resource was updated successfully
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+    delete:
+      tags:
+        - photo
+      description:  Remove photo by given photo ID and occurrence id attribute
+      parameters:
+        - name: occurrence_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: photo_id
+          in: path
+          description: ID of photo to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Photo Removed
+        '404':
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        '403':
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+  /interventions:
+    get:
+      tags:
+        - intervention
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intervention'
+    post:
+      tags:
+        - intervention
+      description: Create a new intervention
+      requestBody:
+        description: Intervention to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewIntervention'
+      responses:
+        '200':
+          description: 'Intervention Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Intervention'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /interventions/{professional}:
+    get:
+      tags:
+        - intervention
+      parameters:
+        - name: professional
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid    
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intervention'
+  /interventions/{client}:
+    get:
+      tags:
+        - intervention
+      parameters:
+        - name: client
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid    
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intervention'
+  /interventions/{device_type}:
+    get:
+      tags:
+        - intervention
+      parameters:
+        - name: device_type
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intervention'
+  /orders:
+    get:
+      tags:
+        - service order
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+    post:
+      tags:
+        - service order
+      description: Create a new order
+      requestBody:
+        description: Order to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewServiceOrder'
+      responses:
+        '200':
+          description: 'Order Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /orders/{intervention_type}:
+    get:
+      tags:
+        - service order
+      parameters:
+        - name: intervention_type
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+  /orders/{professional}:
+    get:
+      tags:
+        - service order
+      parameters:
+        - name: professional
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+  /orders/{client}:
+    get:
+      tags:
+        - service order
+      parameters:
+        - name: client
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+  /orders/{device_type}:
+    get:
+      tags:
+        - service order
+      parameters:
+        - name: device_type
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+  /orders/{estimate}:
+    get:
+      tags:
+        - service order
+      parameters:
+        - name: estimate
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOrder'
+  /estimates:
+    get:
+      tags:
+        - estimate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estimate'
+    post:
+      tags:
+        - estimate
+      description: Create a new estimate
+      requestBody:
+        description: Estimate to add
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewEstimate'
+      responses:
+        '200':
+          description: 'Estimate Response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estimate'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /estimates/{professional}:
+    get:
+      tags:
+        - estimate
+      parameters:
+        - name: professional
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Company'
+  /estimates/{client}:
+    get:
+      tags:
+        - estimate
+      parameters:
+        - name: client
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estimate'
+  /estimates/{device_type}:
+    get:
+      tags:
+        - estimate
+      parameters:
+        - name: device_type
+          required: true
+          in: path
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estimate'
