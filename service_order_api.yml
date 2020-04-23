@@ -106,20 +106,20 @@ components:
           format: email
         phone:
           type: string
-        specialty:
-          $ref: '#/components/schemas/Specialty'
+        expertise:
+          $ref: '#/components/schemas/Expertise'
         active:
           type: boolean
-    Specialty:
+    Expertise:
       allOf:
-        - $ref: '#/components/schemas/NewSpecialty'
+        - $ref: '#/components/schemas/NewExpertise'
       required:
         - id
       properties:
         id:
           type: string
           format: uuid
-    NewSpecialty:
+    NewExpertise:
       type: object
       required:
         - name
@@ -492,9 +492,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Client'
+                type: object
+                properties:
+                  clients:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Client'
     post:
       tags:
         - client
@@ -586,9 +589,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Professional'
+                type: object
+                properties:
+                  professionals:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Professional'
     post:
       tags:
         - professional
@@ -672,34 +678,37 @@ paths:
   /specialties:
     get:
       tags:
-        - specialty
+        - expertise
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Specialty'
+                type: object
+                properties:
+                  specialties:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Expertise'
     post:
       tags:
-        - specialty
-      description: Create a new professional specialty
+        - expertise
+      description: Create a new professional expertise
       requestBody:
-        description: Specialty to add
+        description: Expertise to add
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewSpecialty'
+              $ref: '#/components/schemas/NewExpertise'
       responses:
         '200':
-          description: 'Specialty Response'
+          description: 'Expertise Response'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Specialty'
+                $ref: '#/components/schemas/Expertise'
         '400':
           $ref: '#/components/responses/BadRequestErrorResponse'
         '500':
@@ -707,31 +716,31 @@ paths:
   /specialties/{id}:
     get:
       tags:
-        - specialty    
-      description: Returns a specialty based on informed ID
+        - expertise    
+      description: Returns a expertise based on informed ID
       parameters:
         - name: id
           in: path
-          description: ID of specialty to fetch
+          description: ID of expertise to fetch
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: 'The specialty response'
+          description: 'The expertise response'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Specialty'
+                $ref: '#/components/schemas/Expertise'
     patch:
       tags:
-        - specialty    
-      description: Update specialty based on given ID
+        - expertise    
+      description: Update expertise based on given ID
       parameters:
         - name: id
           in: path
-          description: ID of specialty to patch
+          description: ID of expertise to patch
           required: true
           schema:
             type: string
@@ -745,19 +754,19 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
       tags:
-        - specialty    
-      description:  Remove specialty by given ID attribute
+        - expertise    
+      description:  Remove expertise by given ID attribute
       parameters:
         - name: id
           in: path
-          description: ID of specialty to delete
+          description: ID of expertise to delete
           required: true
           schema:
             type: string
             format: uuid
       responses:
         '200':
-          description: Specialty Removed
+          description: Expertise Removed
         '404':
           $ref: '#/components/responses/NotFoundErrorResponse'
         '403':
@@ -772,9 +781,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Company'
+                type: object
+                properties:
+                  companies:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Company'
     post:
       tags:
         - company
@@ -865,9 +877,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Vendor'
+                type: object
+                properties:
+                  vendors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Vendor'
     post:
       tags:
         - vendor
@@ -936,7 +951,7 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID of specialty to delete
+          description: ID of expertise to delete
           required: true
           schema:
             type: string
@@ -965,9 +980,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
   /vendors/{id}/products/{p_id}:
     get:
       tags:
@@ -985,14 +1003,14 @@ paths:
           schema:
             type: string
             format: uuid            
-      description: Returns a specialty based on informed ID
+      description: Returns a expertise based on informed ID
       responses:
         '200':
-          description: 'The specialty response'
+          description: 'The expertise response'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Specialty'
+                $ref: '#/components/schemas/Expertise'
   /products:
     get:
       tags:
@@ -1003,9 +1021,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
     post:
       tags:
         - product
@@ -1070,11 +1091,11 @@ paths:
     delete:
       tags:
         - product
-      description:  Remove specialty by given ID attribute
+      description:  Remove expertise by given ID attribute
       parameters:
         - name: id
           in: path
-          description: ID of specialty to delete
+          description: ID of expertise to delete
           required: true
           schema:
             type: string
@@ -1103,9 +1124,11 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Product'
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
   /device_types:
     get:
       tags:
@@ -1116,9 +1139,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/DeviceType'
+                type: object
+                properties:
+                  device_types:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DeviceType'
     post:
       tags:
         - device type
@@ -1209,9 +1235,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/OccurrenceType'
+                type: object
+                properties:
+                  occurrence_types:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OccurrenceType'
     post:
       tags:
         - occurrence type
@@ -1302,9 +1331,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Occurrence'
+                type: object
+                properties:
+                  occurrences:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Occurrence'
     post:
       tags:
         - occurrence
@@ -1402,9 +1434,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Occurrence'
+                type: object
+                properties:
+                  occurrences:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Occurrence'
   /occurrences/{client}:
     get:
       tags:
@@ -1422,9 +1457,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Occurrence'
+                type: object
+                properties:
+                  occurrences:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Occurrence'
   /occurrences/{device_type}:
     get:
       tags:
@@ -1442,9 +1480,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Occurrence'
+                type: object
+                properties:
+                  occurrences:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Occurrence'
   /occurrence/{occurrence_id}/photos:
     get:
       tags:
@@ -1463,9 +1504,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Photo'
+                type: object
+                properties:
+                  photos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Photo'
     post:
       tags:
         - photo
@@ -1585,9 +1629,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Intervention'
+                type: object
+                properties:
+                  interventions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Intervention'
     post:
       tags:
         - intervention
@@ -1627,9 +1674,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Intervention'
+                type: object
+                properties:
+                  interventions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Intervention'
   /interventions/{client}:
     get:
       tags:
@@ -1647,9 +1697,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Intervention'
+                type: object
+                properties:
+                  interventions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Intervention'
   /interventions/{device_type}:
     get:
       tags:
@@ -1667,9 +1720,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Intervention'
+                type: object
+                properties:
+                  interventions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Intervention'
   /orders:
     get:
       tags:
@@ -1680,9 +1736,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
     post:
       tags:
         - service order
@@ -1722,9 +1781,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
   /orders/{professional}:
     get:
       tags:
@@ -1742,9 +1804,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
   /orders/{client}:
     get:
       tags:
@@ -1762,9 +1827,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
   /orders/{device_type}:
     get:
       tags:
@@ -1782,9 +1850,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
   /orders/{estimate}:
     get:
       tags:
@@ -1802,9 +1873,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ServiceOrder'
+                type: object
+                properties:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceOrder'
   /estimates:
     get:
       tags:
@@ -1815,9 +1889,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Estimate'
+                type: object
+                properties:
+                  estimates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Estimate'
     post:
       tags:
         - estimate
@@ -1857,9 +1934,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Company'
+                type: object
+                properties:
+                  estimates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Estimate'
   /estimates/{client}:
     get:
       tags:
@@ -1877,9 +1957,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Estimate'
+                type: object
+                properties:
+                  estimates:
+                    type: array
+                    items:
+                    $ref: '#/components/schemas/Estimate'
   /estimates/{device_type}:
     get:
       tags:
@@ -1897,6 +1980,9 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Estimate'
+                type: object
+                properties:
+                  estimates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Estimate'
