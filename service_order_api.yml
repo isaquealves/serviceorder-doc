@@ -97,7 +97,7 @@ components:
         - $ref: '#/components/schemas/User'
       required:
         - name
-          email
+        - email
       properties:
         name:
           type: string
@@ -140,9 +140,9 @@ components:
       type: object
       required:
         - commercial_name
-          legal_name 
-          doc
-          address
+        - legal_name 
+        - doc
+        - address
       properties:
         commercial_name:
           type: string
@@ -166,8 +166,8 @@ components:
       type: object
       required:
         - legalName
-          doc
-          stateDoc
+        - doc
+        - stateDoc
       properties:
         legalName:
           type: string
@@ -204,9 +204,9 @@ components:
       type: object
       required:
         - code
-          barcode
-          vendor
-          productType
+        - barcode
+        - vendor
+        - productType
       properties:
         code:
           type: string
@@ -283,7 +283,7 @@ components:
       type: object
       required:
         - code
-          name
+        - name
       properties:
         code:
           type: string
@@ -302,9 +302,9 @@ components:
       type: object
       required:
         - client
-          deviceType
-          deviceSeries
-          occurrenceType
+        - deviceType
+        - deviceSeries
+        - occurrenceType
       properties:
         client:
           $ref: '#/components/schemas/Client'
@@ -353,8 +353,8 @@ components:
       type: object
       required:
         - title
-          src
-          occurrence
+        - src
+        - occurrence
       properties:
         title:
           type: string
@@ -438,8 +438,7 @@ paths:
     description: The api root. It provides a view of all resources available in current version
     get:
       tags:
-        - root
-          pre-auth
+        - /
       responses:
         '200':
           description: OK
@@ -448,7 +447,6 @@ paths:
     post:
       tags:
         - auth
-          pre-auth
       description: Verify user 
       requestBody:
         description: Get the authentication token
