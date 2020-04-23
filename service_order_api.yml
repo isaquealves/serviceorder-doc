@@ -12,7 +12,7 @@ info:
 servers:
   - url: '{proto}://{host}/{version}'
     variables:
-      protocol:
+      proto:
         enum:
           - http
           - https
