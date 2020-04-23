@@ -3,9 +3,20 @@ info:
   title: Service Orders Management
   description: This api provides resources to manage service orders register and flow, allowing to keep device history
   version: '1.0.0'
+  contact: 
+    name: Isaque Alves
+    email: isaquealves@gmail.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
-  - url: http://{host}/api/{version}
+  - url: '{proto}://{host}/{version}'
     variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
       host:
         enum:
           - localhost:8000
@@ -16,7 +27,7 @@ servers:
         enum:
           - v1
         default: v1
-        description: MVP (minimum viable product) version
+        description: MVP (minimum viable product) version        
 security:
   - bearerAuth: []
 components:
