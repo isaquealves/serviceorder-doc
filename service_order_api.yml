@@ -448,6 +448,7 @@ paths:
   /:
     description: The api root. It provides a view of all resources available in current version
     get:
+      operationId: app.api.root
       tags:
         - /
       responses:
@@ -456,6 +457,7 @@ paths:
   /auth:
     description: The authentication endpoint.
     post:
+      operationId: app.api.authentication.token
       tags:
         - auth
       description: Verify user 
@@ -475,6 +477,7 @@ paths:
                 $ref: '#/components/schemas/AccessToken'
   /auth/refresh:
     post:
+      operationId: app.api.authentication.refresh
       tags:
         - auth
       description: Used to refresh expired authentication token
@@ -495,6 +498,7 @@ paths:
         
   /clients:
     get:
+      operationId: app.api.client.list
       tags:
         - client
       responses:
@@ -510,6 +514,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Client'
     post:
+      operationId: app.api.client.create
       tags:
         - client
       description: Create a new business client
@@ -534,6 +539,7 @@ paths:
 
   /clients/{id}/:
     get:
+      operationId: app.api.client.get
       tags:
         - client
       description: Returns a client based on informed ID
@@ -553,6 +559,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Client'
     patch:
+      operationId: app.api.client.update
       tags:
         - client
       description: Update client based on given ID
@@ -572,6 +579,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.client.delete
       tags:
         - client
       description:  Remove client by given ID attribute
@@ -592,6 +600,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /professionals:
     get:
+      operationId: app.api.professional.list
       tags:
         - professional
       responses:
@@ -607,6 +616,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Professional'
     post:
+      operationId: app.api.professional.create
       tags:
         - professional
       description: Create a new business professional
@@ -630,6 +640,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /professionals/{id}:
     get:
+      operationId: app.api.professional.get
       tags:
         - professional
       description: Returns a professional based on informed ID
@@ -649,6 +660,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Professional'
     patch:
+      operationId: app.api.professional.update
       tags:
         - professional
       description: Update professional based on given ID
@@ -668,6 +680,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.professional.delete
       tags:
         - professional
       description:  Remove professional by given ID attribute
@@ -688,6 +701,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /specialties:
     get:
+      operationId: app.api.specialty.list
       tags:
         - expertise
       responses:
@@ -703,6 +717,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Expertise'
     post:
+      operationId: app.api.specialty.create
       tags:
         - expertise
       description: Create a new professional expertise
@@ -726,6 +741,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /specialties/{id}:
     get:
+      operationId: app.api.specialty.get
       tags:
         - expertise    
       description: Returns a expertise based on informed ID
@@ -745,6 +761,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Expertise'
     patch:
+      operationId: app.api.specialty.update
       tags:
         - expertise    
       description: Update expertise based on given ID
@@ -764,6 +781,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.specialty.delete
       tags:
         - expertise    
       description:  Remove expertise by given ID attribute
@@ -784,6 +802,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /companies:
     get:
+      operationId: app.api.company.list
       tags:
         - company
       responses:
@@ -799,6 +818,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Company'
     post:
+      operationId: app.api.company.create
       tags:
         - company
       description: Create a new company
@@ -822,6 +842,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /companies/{id}:
     get:
+      operationId: app.api.company.get
       tags:
         - company
       description: Returns a company based on informed ID
@@ -841,6 +862,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Company'
     patch:
+      operationId: app.api.company.update
       tags:
         - company
       description: Update company based on given ID
@@ -860,6 +882,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.company.delete
       tags:
         - company
       description:  Remove company by given ID attribute
@@ -880,6 +903,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /vendors:
     get:
+      operationId: app.api.vendor.list
       tags:
         - vendor
       responses:
@@ -895,6 +919,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Vendor'
     post:
+      operationId: app.api.vendor.create
       tags:
         - vendor
       description: Create a new vendor
@@ -918,6 +943,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /vendors/{id}:
     get:
+      operationId: app.api.vendor.get
       tags:
         - vendor
       description: Returns a vendor based on informed ID
@@ -937,6 +963,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Vendor'
     patch:
+      operationId: app.api.vendor.update
       tags:
         - vendor
       description: Update vendor based on given ID
@@ -956,6 +983,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.vendor.delete
       tags:
         - vendor
       description:  Remove vendor by given ID attribute
@@ -976,6 +1004,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /vendors/{id}/products:
     get:
+      operationId: app.api.products.by_vendor
       tags:
         - product
       parameters:
@@ -999,6 +1028,7 @@ paths:
                       $ref: '#/components/schemas/Product'
   /vendors/{id}/products/{p_id}:
     get:
+      operationId: app.api.products.byVendor
       tags:
         - product
       parameters:
@@ -1024,6 +1054,7 @@ paths:
                 $ref: '#/components/schemas/Expertise'
   /products:
     get:
+      operationId: app.api.products.list
       tags:
         - product
       responses:
@@ -1039,6 +1070,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Product'
     post:
+      operationId: app.api.products.create
       tags:
         - product
       description: Create a new product
@@ -1062,6 +1094,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /products/{id}:
     get:
+      operationId: app.api.product.get
       tags:
         - product
       description: Returns a product based on informed ID
@@ -1081,6 +1114,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
     patch:
+      operationId: app.api.product.update
       tags:
         - product
       description: Update product based on given ID
@@ -1100,6 +1134,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.product.delete
       tags:
         - product
       description:  Remove expertise by given ID attribute
@@ -1118,30 +1153,9 @@ paths:
           $ref: '#/components/responses/NotFoundErrorResponse'
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
-  /products/findByVendor:
-    get:
-      tags:
-        - product
-      parameters:
-        - name: vendor_id
-          in: query
-          description: The vendor id
-          schema:
-            type: string
-            format: uuid
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                properties:
-                  products:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Product'
   /device_types:
     get:
+      operationId: app.api.device_type.list
       tags:
         - device type
       responses:
@@ -1157,6 +1171,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/DeviceType'
     post:
+      operationId: app.api.device_type.create
       tags:
         - device type
       description: Create a new device type
@@ -1180,6 +1195,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /device_types/{id}:
     get:
+      operationId: app.api.device_type.get
       tags:
         - device type
       description: Returns a device type based on informed ID
@@ -1199,6 +1215,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeviceType'
     patch:
+      operationId: app.api.device_type.update
       tags:
         - device type
       description: Update device type based on given ID
@@ -1218,6 +1235,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.device_type.delete
       tags:
         - device type
       description:  Remove device type by given ID attribute
@@ -1238,6 +1256,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /occurrence_types:
     get:
+      operationId: app.api.occurrence_type.list
       tags:
         - occurrence type
       responses:
@@ -1253,6 +1272,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/OccurrenceType'
     post:
+      operationId: app.api.occurrence_type.create
       tags:
         - occurrence type
       description: Create a new occurrence type
@@ -1276,8 +1296,9 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /occurrence_types/{id}:
     get:
+      operationId: app.api.occurrence_type.get
       tags:
-        - occurrence type    
+        - occurrence type
       description: Returns a occurrence type based on informed ID
       parameters:
         - name: id
@@ -1295,6 +1316,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/OccurrenceType'
     patch:
+      operationId: app.api.occurrence_type.update
       tags:
         - occurrence type    
       description: Update occurrence type based on given ID
@@ -1314,6 +1336,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.occurrence_type.delete
       tags:
         - occurrence type    
       description:  Remove occurrence type by given ID attribute
@@ -1334,6 +1357,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /occurrence:
     get:
+      operationId: app.api.occurrence.list
       tags:
         - occurrence
       responses:
@@ -1349,6 +1373,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Occurrence'
     post:
+      operationId: app.api.occurrence.create
       tags:
         - occurrence
       description: Create a new occurrence type
@@ -1372,6 +1397,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /occurrence/{id}:
     get:
+      operationId: app.api.occurrence.get
       tags:
         - occurrence
       description: Returns a occurrence based on informed ID
@@ -1391,6 +1417,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Occurrence'
     patch:
+      operationId: app.api.occurrence.update
       tags:
         - occurrence
       description: Update occurrence based on given ID
@@ -1410,6 +1437,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.occurrence.delete
       tags:
         - occurrence
       description:  Remove occurrence by given ID attribute
@@ -1430,6 +1458,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /occurrences/{professional}:
     get:
+      operationId: app.api.occurrence.by_professional
       tags:
         - occurrence
       parameters:
@@ -1453,6 +1482,7 @@ paths:
                       $ref: '#/components/schemas/Occurrence'
   /occurrences/{client}:
     get:
+      operationId: app.api.occurrence.by_client
       tags:
         - occurrence
       parameters:
@@ -1476,6 +1506,7 @@ paths:
                       $ref: '#/components/schemas/Occurrence'
   /occurrences/{device_type}:
     get:
+      operationId: app.api.occurrence.by_device_type
       tags:
         - occurrence
       parameters:
@@ -1499,6 +1530,7 @@ paths:
                       $ref: '#/components/schemas/Occurrence'
   /occurrence/{occurrence_id}/photos:
     get:
+      operationId: app.api.photo.list
       tags:
         - photo
       parameters:
@@ -1522,6 +1554,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Photo'
     post:
+      operationId: app.api.photo.create
       tags:
         - photo
       parameters:
@@ -1553,6 +1586,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /occurrence/{occurrence_id}/photos/{photo_id}/:
     get:
+      operationId: app.api.photo.by_occurrence
       tags:
         - photo
       description: Returns a photo based on informed ID
@@ -1579,6 +1613,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Photo'
     patch:
+      operationId: app.api.photo.updte
       tags:
         - photo
       description: Update photo based on given ID
@@ -1605,6 +1640,7 @@ paths:
         '403':
           $ref: '#/components/responses/UnauthorizedErrorResponse'
     delete:
+      operationId: app.api.photo.delete
       tags:
         - photo
       description:  Remove photo by given photo ID and occurrence id attribute
@@ -1632,6 +1668,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /interventions:
     get:
+      operationId: app.api.intervention.list
       tags:
         - intervention
       responses:
@@ -1647,6 +1684,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Intervention'
     post:
+      operationId: app.api.intervention.create
       tags:
         - intervention
       description: Create a new intervention
@@ -1670,6 +1708,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /interventions/{professional}:
     get:
+      operationId: app.api.intervention.by_professional
       tags:
         - intervention
       parameters:
@@ -1693,6 +1732,7 @@ paths:
                       $ref: '#/components/schemas/Intervention'
   /interventions/{client}:
     get:
+      operationId: app.api.intervention.by_client
       tags:
         - intervention
       parameters:
@@ -1716,6 +1756,7 @@ paths:
                       $ref: '#/components/schemas/Intervention'
   /interventions/{device_type}:
     get:
+      operationId: app.api.intervention.by_device_type
       tags:
         - intervention
       parameters:
@@ -1739,6 +1780,7 @@ paths:
                       $ref: '#/components/schemas/Intervention'
   /orders:
     get:
+      operationId: app.api.order.list
       tags:
         - service order
       responses:
@@ -1754,6 +1796,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
     post:
+      operationId: app.api.order.create
       tags:
         - service order
       description: Create a new order
@@ -1777,6 +1820,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /orders/{intervention_type}:
     get:
+      operationId: app.api.order.by_intervention_type
       tags:
         - service order
       parameters:
@@ -1800,6 +1844,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /orders/{professional}:
     get:
+      operationId: app.api.order.by_professional
       tags:
         - service order
       parameters:
@@ -1823,6 +1868,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /orders/{client}:
     get:
+      operationId: app.api.order.by_client
       tags:
         - service order
       parameters:
@@ -1846,6 +1892,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /orders/{device_type}:
     get:
+      operationId: app.api.order.by_device_type
       tags:
         - service order
       parameters:
@@ -1869,6 +1916,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /orders/{estimate}:
     get:
+      operationId: app.api.orders.by_estimate
       tags:
         - service order
       parameters:
@@ -1892,6 +1940,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /estimates:
     get:
+      operationId: app.api.estimate.list  
       tags:
         - estimate
       responses:
@@ -1906,7 +1955,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Estimate'
-    post:
+    post: 
+      operationId: app.api.estimate.create
       tags:
         - estimate
       description: Create a new estimate
@@ -1930,6 +1980,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'
   /estimates/{professional}:
     get:
+      operationId: app.api.estimate.by_professional
       tags:
         - estimate
       parameters:
@@ -1953,6 +2004,7 @@ paths:
                       $ref: '#/components/schemas/Estimate'
   /estimates/{client}:
     get:
+      operationId: app.api.estimate.by_client
       tags:
         - estimate
       parameters:
@@ -1976,6 +2028,7 @@ paths:
                     $ref: '#/components/schemas/Estimate'
   /estimates/{device_type}:
     get:
+      operationId: app.api.estimate.by_device_type
       tags:
         - estimate
       parameters:
