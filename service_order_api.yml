@@ -476,6 +476,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessToken'
+      security: []
   /auth/refresh:
     post:
       operationId: app.api.authentication.refresh
@@ -496,7 +497,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessToken'
-        
+      security: []
   /clients:
     get:
       operationId: app.api.client.list
