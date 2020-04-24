@@ -1614,7 +1614,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Photo'
     patch:
-      operationId: app.api.photo.updte
+      operationId: app.api.photo.update
       tags:
         - photo
       description: Update photo based on given ID
