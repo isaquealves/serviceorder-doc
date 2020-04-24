@@ -454,6 +454,7 @@ paths:
       responses:
         '200':
           description: OK
+      security: []      
   /auth:
     description: The authentication endpoint.
     post:
@@ -1004,7 +1005,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /vendors/{id}/products:
     get:
-      operationId: app.api.products.by_vendor
+      operationId: app.api.product.by_vendor
       tags:
         - product
       parameters:
@@ -1028,7 +1029,7 @@ paths:
                       $ref: '#/components/schemas/Product'
   /vendors/{id}/products/{p_id}:
     get:
-      operationId: app.api.products.byVendor
+      operationId: app.api.product.byVendor
       tags:
         - product
       parameters:
@@ -1054,7 +1055,7 @@ paths:
                 $ref: '#/components/schemas/Expertise'
   /products:
     get:
-      operationId: app.api.products.list
+      operationId: app.api.product.list
       tags:
         - product
       responses:
@@ -1070,7 +1071,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/Product'
     post:
-      operationId: app.api.products.create
+      operationId: app.api.product.create
       tags:
         - product
       description: Create a new product
