@@ -1917,7 +1917,7 @@ paths:
                       $ref: '#/components/schemas/ServiceOrder'
   /orders/{estimate}:
     get:
-      operationId: app.api.orders.by_estimate
+      operationId: app.api.order.by_estimate
       tags:
         - service order
       parameters:
