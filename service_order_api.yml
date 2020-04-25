@@ -37,6 +37,8 @@ components:
       scheme: bearer
       bearerFormat: JWT
   responses:
+    SuccessfulResponse:
+      description: Ok
     InternalErrorResponse:
       description: Server temporarily having failure
     UnauthorizedErrorResponse:
@@ -48,6 +50,14 @@ components:
     AccessTokenResponse:
       description: Response for Access Token requests
   schemas:
+    UserCode:
+      required:
+        - code
+      properties:
+        code:
+          description: The code sent through email used to generate the tokens
+          type: string
+          pattern: '/^\d{6}$/g'
     User:
       required:
         - username
@@ -458,17 +468,39 @@ paths:
   /auth:
     description: The authentication endpoint.
     post:
-      operationId: app.api.authentication.token
+      operationId: app.api.authentication.request
       tags:
         - auth
       description: Verify user 
+      requestBody:
+        description: Generate and send through email a personal code
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Code sent through email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/responses/SuccessfulResponse'
+      security: []
+  /auth/token:
+    description: The authentication endpoint.
+    post:
+      operationId: app.api.authentication.token
+      tags:
+        - auth
+      description: Verify personal code
       requestBody:
         description: Get the authentication token
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              $ref: '#/components/schemas/UserCode'
       responses:
         '200':
           description: Access Token returned
