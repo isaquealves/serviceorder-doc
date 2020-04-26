@@ -546,7 +546,7 @@ paths:
       security: []
   /users:
     post:
-      operationId: app.api.users.create
+      operationId: app.api.user.create
       tags:
         - User
       description: Create a new system user
