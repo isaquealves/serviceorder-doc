@@ -568,6 +568,8 @@ paths:
           $ref: '#/components/responses/BadRequestErrorResponse'
         '500':
           $ref: '#/components/responses/InternalErrorResponse'
+      security: []
+      
   /clients:
     get:
       operationId: app.api.client.list
