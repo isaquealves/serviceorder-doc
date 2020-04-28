@@ -141,9 +141,6 @@ components:
       type: object
       allOf:
         - $ref: '#/components/schemas/User'
-      required:
-        - name
-        - email
       properties:
         phone:
           type: string
