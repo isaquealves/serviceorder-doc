@@ -572,7 +572,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalErrorResponse'
       security: []
-  /users/activate/{code}:
+  /users/activate/:
     get:
       operationId: app.api.user.activate
       tags:
@@ -580,12 +580,11 @@ paths:
       description: User account activation route
       parameters:
         - name: code
-          in: path
+          in: query
           description: The user activation code sent through email
           required: true
           schema:
             type: string
-            format: byte
       responses:
         '200':
           description: Access Token returned
