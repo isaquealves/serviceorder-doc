@@ -600,7 +600,7 @@ paths:
       security: []
   /clients:
     get:
-      operationId: app.api.client.list
+      operationId: app.api.client.list_all
       tags:
         - client
       responses:
@@ -710,7 +710,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /professionals:
     get:
-      operationId: app.api.professional.list
+      operationId: app.api.professional.list_all
       tags:
         - professional
       responses:
@@ -819,7 +819,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /specialties:
     get:
-      operationId: app.api.specialty.list
+      operationId: app.api.specialty.list_all
       tags:
         - expertise
       responses:
@@ -928,7 +928,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /companies:
     get:
-      operationId: app.api.company.list
+      operationId: app.api.company.list_all
       tags:
         - company
       responses:
@@ -1033,7 +1033,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /vendors:
     get:
-      operationId: app.api.vendor.list
+      operationId: app.api.vendor.list_all
       tags:
         - vendor
       responses:
@@ -1200,7 +1200,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'                
   /products:
     get:
-      operationId: app.api.product.list
+      operationId: app.api.product.list_all
       tags:
         - product
       responses:
@@ -1309,7 +1309,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /device_types:
     get:
-      operationId: app.api.device_type.list
+      operationId: app.api.device_type.list_all
       tags:
         - device type
       responses:
@@ -1418,7 +1418,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /occurrence_types:
     get:
-      operationId: app.api.occurrence_type.list
+      operationId: app.api.occurrence_type.list_all
       tags:
         - occurrence type
       responses:
@@ -1527,7 +1527,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /occurrence:
     get:
-      operationId: app.api.occurrence.list
+      operationId: app.api.occurrence.list_all
       tags:
         - occurrence
       responses:
@@ -1720,7 +1720,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'                      
   /occurrence/{occurrence_id}/photos:
     get:
-      operationId: app.api.photo.list
+      operationId: app.api.photo.list_all
       tags:
         - photo
       parameters:
@@ -1866,7 +1866,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
   /interventions:
     get:
-      operationId: app.api.intervention.list
+      operationId: app.api.intervention.list_all
       tags:
         - intervention
       responses:
@@ -1990,7 +1990,7 @@ paths:
                       $ref: '#/components/schemas/Intervention'
   /orders:
     get:
-      operationId: app.api.order.list
+      operationId: app.api.order.list_all
       tags:
         - service order
       responses:
@@ -2174,7 +2174,7 @@ paths:
           $ref: '#/components/responses/InternalErrorResponse'                      
   /estimates:
     get:
-      operationId: app.api.estimate.list  
+      operationId: app.api.estimate.list_all  
       tags:
         - estimate
       responses:
