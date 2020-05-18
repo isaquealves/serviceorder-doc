@@ -57,18 +57,13 @@ components:
         code:
           description: The code sent through email used to generate the tokens
           type: string
-          pattern: '/^\d{6}$/g'
+          pattern: '^\d{6}$'
     User:
-      required:
-        - username
-        - email
-        - first_name
-        - last_name
       properties:
         username:
           description: The user username. Minimum of 5 chars and max of 12 chars length
           type: string
-          pattern: '/^[a-zA-Z\-\_\.]{5,12}$/g'
+          pattern: '^[a-zA-Z-_.[0-9]{5,12}$'
         email:
           description: The user email used to confirm identity
           type: string
@@ -96,7 +91,7 @@ components:
         username:
           description: The user username. Minimum of 5 chars and max of 12 chars length
           type: string
-          pattern: '/^[a-zA-Z\-\_\.]{5,12}$/g'
+          pattern: '^[a-zA-Z\-\_\.]{5,12}$'
     Client:
       allOf:
         - $ref: '#/components/schemas/NewClient'
@@ -495,7 +490,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User'
+              properties:
+                username:
+                  type: string
       responses:
         '200':
           description: Code sent through email
@@ -503,6 +500,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/responses/SuccessfulResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
       security: []
   /auth/token:
     description: The authentication endpoint.
@@ -525,6 +526,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessToken'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
       security: []
   /auth/refresh:
     post:
@@ -546,6 +551,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessToken'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'              
       security: []
   /users:
     post:
@@ -592,6 +601,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessToken'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
       security: []
   /clients:
     get:
@@ -610,6 +623,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Client'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.client.create
       tags:
@@ -655,6 +672,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Client'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.client.update
       tags:
@@ -712,6 +733,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Professional'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.professional.create
       tags:
@@ -756,6 +781,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Professional'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.professional.update
       tags:
@@ -813,6 +842,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Expertise'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.specialty.create
       tags:
@@ -857,6 +890,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Expertise'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.specialty.update
       tags:
@@ -914,6 +951,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Company'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.company.create
       tags:
@@ -1015,6 +1056,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Vendor'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.vendor.create
       tags:
@@ -1059,6 +1104,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Vendor'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.vendor.update
       tags:
@@ -1123,6 +1172,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /vendors/{id}/products/{p_id}:
     get:
       operationId: app.api.product.byVendor
@@ -1149,6 +1202,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Expertise'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
   /products:
     get:
       operationId: app.api.product.list
@@ -1166,6 +1223,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.product.create
       tags:
@@ -1210,6 +1271,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.product.update
       tags:
@@ -1267,6 +1332,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/DeviceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.device_type.create
       tags:
@@ -1311,6 +1380,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.device_type.update
       tags:
@@ -1368,6 +1441,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/OccurrenceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.occurrence_type.create
       tags:
@@ -1412,6 +1489,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OccurrenceType'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.occurrence_type.update
       tags:
@@ -1469,6 +1550,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.occurrence.create
       tags:
@@ -1513,6 +1598,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                
     patch:
       operationId: app.api.occurrence.update
       tags:
@@ -1577,6 +1666,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /occurrences/{client}:
     get:
       operationId: app.api.occurrence.by_client
@@ -1601,6 +1694,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /occurrences/{device_type}:
     get:
       operationId: app.api.occurrence.by_device_type
@@ -1625,6 +1722,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Occurrence'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /occurrence/{occurrence_id}/photos:
     get:
       operationId: app.api.photo.list
@@ -1650,6 +1751,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Photo'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
     post:
       operationId: app.api.photo.create
       tags:
@@ -1709,6 +1814,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Photo'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'          
     patch:
       operationId: app.api.photo.update
       tags:
@@ -1780,6 +1889,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Intervention'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
     post:
       operationId: app.api.intervention.create
       tags:
@@ -1827,6 +1940,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Intervention'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /interventions/{client}:
     get:
       operationId: app.api.intervention.by_client
@@ -1851,6 +1968,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Intervention'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /interventions/{device_type}:
     get:
       operationId: app.api.intervention.by_device_type
@@ -1892,6 +2013,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
     post:
       operationId: app.api.order.create
       tags:
@@ -1939,6 +2064,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /orders/{professional}:
     get:
       operationId: app.api.order.by_professional
@@ -1963,6 +2092,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /orders/{client}:
     get:
       operationId: app.api.order.by_client
@@ -1987,6 +2120,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /orders/{device_type}:
     get:
       operationId: app.api.order.by_device_type
@@ -2011,6 +2148,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
   /orders/{estimate}:
     get:
       operationId: app.api.order.by_estimate
@@ -2035,6 +2176,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ServiceOrder'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /estimates:
     get:
       operationId: app.api.estimate.list  
@@ -2052,6 +2197,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Estimate'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                  
     post: 
       operationId: app.api.estimate.create
       tags:
@@ -2099,6 +2248,10 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Estimate'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
   /estimates/{client}:
     get:
       operationId: app.api.estimate.by_client
@@ -2123,6 +2276,10 @@ paths:
                     type: array
                     items:
                     $ref: '#/components/schemas/Estimate'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                    
   /estimates/{device_type}:
     get:
       operationId: app.api.estimate.by_device_type
@@ -2147,3 +2304,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Estimate'
+        '400':
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'                      
