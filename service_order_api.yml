@@ -91,7 +91,7 @@ components:
         username:
           description: The user username. Minimum of 5 chars and max of 12 chars length
           type: string
-          pattern: '^[a-zA-Z\-\_\.]{5,12}$'
+          pattern: '^[a-zA-Z0-9-_.]{5,12}$'
     Client:
       allOf:
         - $ref: '#/components/schemas/NewClient'
@@ -111,10 +111,10 @@ components:
       properties:
         phone:
           type: string
-          pattern: /^/\(\d{2}/\).\d{4,5}.\d{4}$/
+          pattern: '^/\(\d{2}/\).\d{4,5}.\d{4}$'
         doc:
           type: string
-          pattern: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/
+          pattern: '^\d{3}\.\d{3}\.\d{3}\-\d{2}$'
         company_name:
           type: string
         address:
@@ -183,7 +183,7 @@ components:
           type: string
         doc:
           type: string
-          pattern: /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/
+          pattern: '^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$'
         address:
           $ref: '#/components/schemas/Address'
     Vendor:
